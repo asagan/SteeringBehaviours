@@ -4,9 +4,9 @@ using System.Text;
 using SimioAPI;
 using SimioAPI.Extensions;
 
-namespace UserDefinedStepAndElement1
+namespace Separation
 {
-    public class UserStepDefinition : IStepDefinition
+    public class SeparationStepDefinition : IStepDefinition
     {
         #region IStepDefinition Members
 
@@ -15,7 +15,7 @@ namespace UserDefinedStepAndElement1
         /// </summary>
         public string Name
         {
-            get { return "UserStep"; }
+            get { return "Separation"; }
         }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace UserDefinedStepAndElement1
         /// </summary>
         public string Description
         {
-            get { return "Description text for the UserStep step."; }
+            get { return "Assigns a directional vector to the three states entered as properties based on separation"; }
         }
 
         /// <summary>
@@ -56,18 +56,36 @@ namespace UserDefinedStepAndElement1
         /// </summary>
         public void DefineSchema(IPropertyDefinitions schema)
         {
-            // Example of how to add a property definition to the step.
-            IPropertyDefinition pd;
-            pd = schema.AddExpressionProperty("MyExpression", "0.0");
-            pd.DisplayName = "My Expression";
-            pd.Description = "An expression property for this step.";
-            pd.Required = true;
+            IPropertyDefinition x;
+            IPropertyDefinition y;
+            IPropertyDefinition z;
+            IPropertyDefinition maxDistance;
+            IPropertyDefinition flockQueue;
 
-            // Example of how to add an element property definition to the step.
-            pd = schema.AddElementProperty("UserElementName", UserElementDefinition.MY_ID);
-            pd.DisplayName = "UserElement Name";
-            pd.Description = "The name of a UserElement element referenced by this step.";
-            pd.Required = true;
+            x = schema.AddStateProperty("XState");
+            y = schema.AddStateProperty("YState");
+            z = schema.AddStateProperty("ZState");
+
+            x.DisplayName = "X State Variable Name";
+            y.DisplayName = "Y State Variable Name";
+            z.DisplayName = "Z State Variable Name";
+
+            x.Description = "Name of the state variable that will store the x steering vector.";
+            y.Description = "Name of the state variable that will store the y steering vector.";
+            z.Description = "Name of the state variable that will store the z steering vector.";
+
+            x.Required = false;
+            y.Required = false;
+            z.Required = false;
+
+            maxDistance = schema.AddExpressionProperty("MaxDistance", "0.0");
+            maxDistance.DisplayName = "Desired Separation Distance";
+            maxDistance.Description = "The desired separation distance to maintain from other entities";
+            maxDistance.Required = true;
+
+            flockQueue = schema.AddElementProperty("FlockQueue", 
+            flockQueue = schema.AddStateProperty
+
         }
 
         /// <summary>
@@ -76,17 +94,17 @@ namespace UserDefinedStepAndElement1
         /// </summary>
         public IStep CreateStep(IPropertyReaders properties)
         {
-            return new SteeringBehaviour(properties);
+            return new Separation(properties);
         }
 
         #endregion
     }
 
-    class SteeringBehaviour : IStep
+    class Separation : IStep
     {
         IPropertyReaders _properties;
 
-        public SteeringBehaviour(IPropertyReaders properties)
+        public Separation(IPropertyReaders properties)
         {
             _properties = properties;
         }
@@ -105,7 +123,7 @@ namespace UserDefinedStepAndElement1
 
             // Example of how to get an element reference specified in an element property of the step.
             IElementProperty myElementProp = (IElementProperty)_properties.GetProperty("UserElementName");
-            UserElement myElement = (UserElement)myElementProp.GetElement(context);
+            //UserElement myElement = (UserElement)myElementProp.GetElement(context);
 
             // Example of how to display a trace line for the step.
             context.ExecutionInformation.TraceInformation(String.Format("The value of expression '{0}' is '{1}'.", myExpressionPropStringValue, myExpressionPropDoubleValue));

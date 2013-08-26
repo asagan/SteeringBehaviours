@@ -8,7 +8,7 @@
     <ProjectGuid>{441FCAF0-6480-4E00-A3BD-FC5059390BAE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SteeringBehaviours</RootNamespace>
+    <RootNamespace>Separation</RootNamespace>
     <AssemblyName>SteeringBehaviours</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -44,7 +44,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\..\Documents\SimioUserExtensions\</OutputPath>
+    <OutputPath>..\..\..\..\SimioUserExtensions\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -62,7 +62,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SteeringBehaviour.cs" />
+    <Compile Include="Separation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
